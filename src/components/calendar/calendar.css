@@ -1,0 +1,125 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  justify-items: flex-start;
+  gap: 18px;
+  height: 100dvh;
+}
+.row {
+  display: flex;
+}
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 308px;
+}
+
+.main-body {
+  padding: 8px 0;
+  background: rgba(78, 78, 78, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid #ffffff24;
+  z-index: 1;
+  margin-top: 8em;
+}
+
+.main-body .calendar li {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  padding: 8px;
+  margin: 4px;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: all 0.5s ease;
+}
+
+.calendar li:hover {
+  background-color: #202020;
+  border-radius: 100px;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  background: rgba(78, 78, 78, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid #ffffff24;
+  width: 284px;
+}
+
+.workout-day li {
+  background-color: #5bc0eb;
+  color: #2c2c2c;
+}
+
+.drink-day li {
+  background-color: #fde74c;
+  color: #2c2c2c;
+}
+
+.combined-day li {
+  background-color: #66c519;
+  color: #2c2c2c;
+}
+
+p.combined-day {
+  color: #66c519;
+}
+
+p.drink-day {
+  color: #fde74c;
+}
+
+p.workout-day {
+  color: #5bc0eb;
+}
+
+.month-yr-selector {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: solid 1px #ffffff24;
+  padding-bottom: 8px;
+}
+
+p {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  text-align: center;
+  margin: 0;
+  text-wrap: pretty;
+  border-radius: 100px;
+}
+
+select {
+  background-color: transparent;
+  padding: 8px 12px;
+  border-radius: 100px;
+  border: solid 1px #ffffff24;
+}
+
+select:active {
+  border: none;
+}
+
+select:focus-visible {
+  outline: none;
+}

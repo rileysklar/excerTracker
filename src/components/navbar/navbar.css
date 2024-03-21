@@ -1,0 +1,21 @@
+.navbar {
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: rgba(0, 9, 26, 0.15);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-radius: 1.5em;
+  position: fixed;
+  top: 20px;
+  padding: 8px;
+}
+
+h3 {
+  text-align: start;
+  margin: 0;
+  padding: 12px;
+}
