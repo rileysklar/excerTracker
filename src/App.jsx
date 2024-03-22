@@ -1,6 +1,6 @@
 import "./App.css";
 import { Calendar } from "./components/calendar/Calendar";
-import { NavBar } from "./components/NavBar/NavBar";
+import { NavBar } from "./components/navbar/NavBar";
 
 function App() {
   return (

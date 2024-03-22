@@ -3,19 +3,51 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 294px;
   background: rgba(0, 9, 26, 0.15);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.085);
-  border-radius: 1.5em;
+  border-radius: 10px;
   position: fixed;
-  top: 20px;
+  top: 18px;
   padding: 8px;
 }
 
 h3 {
   text-align: start;
   margin: 0;
-  padding: 12px;
+  padding: 12px 12px 0 8px;
+}
+
+.user {
+  font-size: 10px;
+  padding-left: 12px;
+}
+
+.dropdown-menu {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  position: absolute;
+  top: 89px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 99.5%;
+  margin: 0px 0 0 -8px;
+  height: 390px;
+  gap: 20px;
+  background: #2c2c2c;
+  color: #cec4c4;
+  font-size: 20px;
+  font-weight: 900;
+  font-family: "Roboto", sans-serif;
+  box-shadow: 0 10px 30px rgba(31, 31, 31, 0.3);
+  border: solid 1px #bdbdbd35;
+}
+
+.dropdown-menu a {
+  color: #bbbbbb;
 }

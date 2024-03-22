@@ -27,7 +27,7 @@
   border-radius: 10px;
   border: 1px solid #ffffff24;
   z-index: 1;
-  margin-top: 8em;
+  margin-top: 108px;
 }
 
 .main-body .calendar li {
@@ -42,12 +42,13 @@
   margin: 4px;
   cursor: pointer;
   border-radius: 100px;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 
 .calendar li:hover {
-  background-color: #202020;
+  background-color: #535353;
   border-radius: 100px;
+  color: #fff;
 }
 
 .result {
@@ -92,11 +93,13 @@ p.workout-day {
 
 .month-yr-selector {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   margin-bottom: 12px;
   border-bottom: solid 1px #ffffff24;
   padding-bottom: 8px;
+  gap: 12px;
 }
 
 p {
@@ -109,11 +112,31 @@ p {
   border-radius: 100px;
 }
 
+.activity-selector select {
+  width: 300px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.date-selector {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 12px;
+  padding: 0px 10px;
+  width: 100%;
+}
+
 select {
   background-color: transparent;
   padding: 8px 12px;
   border-radius: 100px;
   border: solid 1px #ffffff24;
+  width: 46%;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 select:active {

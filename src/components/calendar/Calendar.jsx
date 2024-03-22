@@ -73,28 +73,31 @@ export function Calendar() {
     <>
       <div className="main-body">
         <div className="month-yr-selector">
-          <select value={month} onChange={handleMonthChange}>
-            {monthNames.map((name, index) => (
-              <option key={index} value={index}>
-                {name}
-              </option>
-            ))}
-          </select>
-
-          <select value={year} onChange={handleYearChange}>
-            {yearsArray.map((actualYear) => (
-              <option key={actualYear} value={actualYear}>
-                {actualYear}
-              </option>
-            ))}
-          </select>
-          <select value={currentActivity} onChange={handleActivityChange}>
-            {activities.map((activityItem) => (
-              <option key={activityItem} value={activityItem}>
-                {activityItem}
-              </option>
-            ))}
-          </select>
+          <div className="date-selector">
+            <select value={month} onChange={handleMonthChange}>
+              {monthNames.map((name, index) => (
+                <option key={index} value={index}>
+                  {name}
+                </option>
+              ))}
+            </select>
+            <select value={year} onChange={handleYearChange}>
+              {yearsArray.map((actualYear) => (
+                <option key={actualYear} value={actualYear}>
+                  {actualYear}
+                </option>
+              ))}
+            </select>{" "}
+          </div>
+          <div className="activity-selector">
+            <select value={currentActivity} onChange={handleActivityChange}>
+              {activities.map((activityItem) => (
+                <option key={activityItem} value={activityItem}>
+                  {activityItem}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <div className="calendar">
           <div className="row">
