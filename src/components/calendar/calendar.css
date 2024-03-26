@@ -131,11 +131,6 @@ select:focus-visible {
   border-radius: 100px;
 }
 
-.date-cell:hover {
-  background-color: #f0f0f018;
-  color: #fff;
-}
-
 .placeholder {
   background-color: #f0f0f005;
   border: none;

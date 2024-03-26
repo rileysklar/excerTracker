@@ -138,6 +138,7 @@ export function Calendar() {
                   className={`date-cell ${dayClass}`}
                   key={day}
                   onClick={() => toggleDay(day)}
+                  tabIndex="-1"
                 >
                   {day}
                 </div>
