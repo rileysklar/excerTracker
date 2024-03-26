@@ -5,17 +5,6 @@
   align-items: center;
   justify-items: flex-start;
   gap: 18px;
-  height: 100dvh;
-}
-.row {
-  display: flex;
-}
-
-.calendar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  width: 308px;
 }
 
 .main-body {
@@ -27,7 +16,11 @@
   border-radius: 10px;
   border: 1px solid #ffffff24;
   z-index: 1;
-  margin-top: 108px;
+  margin-top: 32px;
+}
+
+.row {
+  display: flex;
 }
 
 .main-body .calendar li {
@@ -45,12 +38,6 @@
   transition: all 0.3s ease;
 }
 
-.calendar li:hover {
-  background-color: #535353;
-  border-radius: 100px;
-  color: #fff;
-}
-
 .result {
   display: flex;
   flex-direction: column;
@@ -61,34 +48,7 @@
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
   border: 1px solid #ffffff24;
-  width: 284px;
-}
-
-.workout-day li {
-  background-color: #5bc0eb;
-  color: #2c2c2c;
-}
-
-.drink-day li {
-  background-color: #fde74c;
-  color: #2c2c2c;
-}
-
-.combined-day li {
-  background-color: #66c519;
-  color: #2c2c2c;
-}
-
-p.combined-day {
-  color: #66c519;
-}
-
-p.drink-day {
-  color: #fde74c;
-}
-
-p.workout-day {
-  color: #5bc0eb;
+  width: 100%;
 }
 
 .month-yr-selector {
@@ -145,4 +105,61 @@ select:active {
 
 select:focus-visible {
   outline: none;
+}
+
+.calendar {
+  padding: 12px;
+}
+
+.calendar .header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Assuming 7 days in a week */
+  text-align: center;
+}
+
+.dates-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 days a week */
+  grid-gap: 4px;
+}
+
+.date-cell {
+  text-align: center;
+  padding: 8px 10px;
+  border: 1px solid #cccccc1b;
+  cursor: pointer;
+  border-radius: 100px;
+}
+
+.placeholder {
+  background-color: #f0f0f005;
+  border: none;
+}
+p.combined-day {
+  color: #66c519;
+  background-color: transparent;
+}
+
+p.drink-day {
+  color: #fde74c;
+  background-color: transparent;
+}
+
+p.workout-day {
+  color: #5bc0eb;
+  background-color: transparent;
+}
+.workout-day {
+  background-color: #5bc0eb;
+  color: #2c2c2c;
+}
+
+.drink-day {
+  background-color: #fde74c;
+  color: #2c2c2c;
+}
+
+.combined-day {
+  background-color: #66c519;
+  color: #2c2c2c;
 }

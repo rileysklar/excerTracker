@@ -31,10 +31,15 @@ export function Calendar() {
     { length: endYear - startYear + 1 },
     (_, i) => startYear + i
   );
+  const getFirstDayOfMonth = (year, month) => {
+    return new Date(year, month, 1).getDay();
+  };
 
   const getDaysInMonth = (year, month) => {
     return new Date(year, month + 1, 0).getDate();
   };
+  const firstDayOfMonth = getFirstDayOfMonth(year, month);
+  const placeholders = Array.from({ length: firstDayOfMonth }, (_, i) => null);
 
   const daysInMonth = getDaysInMonth(year, month);
   const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
@@ -105,31 +110,41 @@ export function Calendar() {
               <li key={dayOfWeek}>{dayOfWeek}</li>
             ))}
           </div>
-          {daysArray.map((day) => {
-            const dayString = `${year}-${String(month + 1).padStart(
-              2,
-              "0"
-            )}-${String(day).padStart(2, "0")}`;
-            const isWorkoutDay = workoutDays.includes(dayString);
-            const isDrinkDay = drinkDays.includes(dayString);
-            let dayClass = "";
-            if (isWorkoutDay && isDrinkDay) {
-              dayClass = "combined-day";
-            } else if (isWorkoutDay) {
-              dayClass = "workout-day";
-            } else if (isDrinkDay) {
-              dayClass = "drink-day";
-            }
-            return (
+          <div className="dates-grid">
+            {placeholders.map((_, index) => (
               <div
-                className={`row ${dayClass}`}
-                key={day}
-                onClick={() => toggleDay(day)}
-              >
-                <li>{day}</li>
-              </div>
-            );
-          })}
+                className="date-cell placeholder"
+                key={`placeholder-${index}`}
+              ></div>
+            ))}
+
+            {daysArray.map((day) => {
+              const dayString = `${year}-${String(month + 1).padStart(
+                2,
+                "0"
+              )}-${String(day).padStart(2, "0")}`;
+              const isWorkoutDay = workoutDays.includes(dayString);
+              const isDrinkDay = drinkDays.includes(dayString);
+              let dayClass = "";
+              if (isWorkoutDay && isDrinkDay) {
+                dayClass = "combined-day";
+              } else if (isWorkoutDay) {
+                dayClass = "workout-day";
+              } else if (isDrinkDay) {
+                dayClass = "drink-day";
+              }
+              return (
+                <div
+                  className={`date-cell ${dayClass}`}
+                  key={day}
+                  onClick={() => toggleDay(day)}
+                  tabIndex="-1"
+                >
+                  {day}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
       <div className="result">
