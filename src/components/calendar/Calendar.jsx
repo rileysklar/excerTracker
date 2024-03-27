@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./calendar.css";
 
-export function Calendar() {
+export default function Calendar() {
   const currentYear = new Date().getFullYear();
   const [year, setYear] = useState(currentYear);
   const [month, setMonth] = useState(new Date().getMonth());
@@ -39,7 +39,7 @@ export function Calendar() {
     return new Date(year, month + 1, 0).getDate();
   };
   const firstDayOfMonth = getFirstDayOfMonth(year, month);
-  const placeholders = Array.from({ length: firstDayOfMonth }, (_, i) => null);
+  const placeholders = Array.from({ length: firstDayOfMonth }, () => null);
 
   const daysInMonth = getDaysInMonth(year, month);
   const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
@@ -73,6 +73,10 @@ export function Calendar() {
   const handleActivityChange = (e) => {
     setCurrentActivity(e.target.value);
   };
+
+  const combinedDaysCount = workoutDays.filter((day) =>
+    drinkDays.includes(day)
+  ).length;
 
   return (
     <>
@@ -153,8 +157,7 @@ export function Calendar() {
         </p>
         <p className=" drink-day">🍺 You have drank {drinkDays.length} days</p>
         <p className=" combined-day">
-          🤝 You have done both{" "}
-          {workoutDays.filter((day) => drinkDays.includes(day)).length} days
+          🤝 You have done both {combinedDaysCount} days
         </p>
       </div>
     </>
