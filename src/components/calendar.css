@@ -41,14 +41,16 @@
 .result {
   display: flex;
   flex-direction: column;
-  padding: 12px;
+  padding-bottom: 12px;
   background: rgba(78, 78, 78, 0.25);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
   border: 1px solid #ffffff24;
-  width: 100%;
+  width: 340px;
+  height: 405px;
+  margin-top: 32px;
 }
 
 .month-yr-selector {
@@ -136,7 +138,7 @@ select:focus-visible {
   border: none;
 }
 p.combined-day {
-  color: #fbfaf2;
+  color: #ff6e40;
   background-color: transparent;
 }
 
@@ -154,17 +156,34 @@ p.workout-day {
   color: #2c2c2c;
 }
 
+.drink-day,
+.workout-day,
+.combined-day {
+  display: flex;
+  justify-content: center;
+}
+
 .drink-day {
   background-color: #ffe845;
   color: #2c2c2c;
 }
 
 .combined-day {
-  background-color: #fbfaf2;
+  background-color: #ff6e40;
   color: #2c2c2c;
 }
 
 .mui_measurement_span {
   display: flex;
   position: relative;
+}
+
+.css-66gjpw-MuiResponsiveChart-container > svg {
+  padding-left: 30px;
+}
+
+@media only screen and (max-width: 767px) {
+  .calendar-content {
+    gap: 0;
+  }
 }

@@ -3,5 +3,17 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
+}
+
+.calendar-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+  .calendar-content {
+    flex-direction: column;
+  }
 }

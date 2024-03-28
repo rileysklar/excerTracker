@@ -1,20 +1,20 @@
 import "./navbar.css";
-import MenuIcon from "../assets/menu.svg";
-import { useState } from "react";
+// import MenuIcon from "../assets/menu.svg";
+// import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 
 export function NavBar() {
-  const [dropDown, setDropDown] = useState(false);
+  // const [dropDown, setDropDown] = useState(false);
   const { auth, signOut } = useAuth();
   const { user } = useAuth();
-  const handleDropDown = () => {
-    setDropDown(!dropDown);
-  };
+  // const handleDropDown = () => {
+  //   setDropDown(!dropDown);
+  // };
 
-  const closeDropDown = () => {
-    setDropDown(false);
-  };
+  // const closeDropDown = () => {
+  //   setDropDown(false);
+  // };
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -54,25 +54,25 @@ export function NavBar() {
               Register
             </Link>
           )}
-          {auth && (
+          {/* {auth && (
             <Link className="nav-link" to="/">
               Home
             </Link>
-          )}
+          )} */}
           {auth && (
             <a href="/" className="nav-link" onClick={handleLogout}>
-              LogOut
+              Log Out
             </a>
           )}
         </div>
       </nav>
-      <img src={MenuIcon} alt="menu" onClick={handleDropDown} />
+      {/* <img src={MenuIcon} alt="menu" onClick={handleDropDown} />
       {dropDown && (
         <div className="dropdown-menu" onClick={closeDropDown}>
           <Link to={"/login"}>Login</Link>
           <Link to={"/register"}>Register</Link>
         </div>
-      )}
+      )} */}
     </nav>
   );
 }
