@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Calendar from "./components/Calendar/Calendar";
-import { NavBar } from "./components/navbar/NavBar";
+import Calendar from "./components/Calendar";
+import { NavBar } from "./components/NavBar";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import AuthRoute from "./components/AuthRoute";

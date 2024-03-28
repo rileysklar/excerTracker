@@ -1,8 +1,8 @@
 import "./navbar.css";
-import MenuIcon from "../../assets/menu.svg";
+import MenuIcon from "../assets/menu.svg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthProvider";
+import { useAuth } from "../context/AuthProvider";
 
 export function NavBar() {
   const [dropDown, setDropDown] = useState(false);
