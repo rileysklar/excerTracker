@@ -1,17 +1,13 @@
 .navbar {
-  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 88%;
+  width: calc(100vw - 24px);
   background: rgba(0, 9, 26, 0.15);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.085);
-  border-radius: 10px;
-  position: fixed;
-  top: 18px;
-  padding: 8px;
+  padding: 12px;
 }
 
 h3 {
@@ -27,26 +23,23 @@ h3 {
 
 .dropdown-menu {
   position: absolute;
-  top: 89px;
-  border-radius: 10px;
+  top: 80px;
+  right: 0;
+  border-radius: 0 0 10px 10px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 40px 0 0 0;
-  width: 99.5%;
+  padding: 40px 80px;
+  width: auto;
   margin: 0px 0 0 -8px;
-  height: 80vh;
+  height: auto;
   gap: 20px;
   color: #cec4c4;
   font-size: 20px;
   font-weight: 900;
   font-family: "Roboto", sans-serif;
-  background: rgba(17, 17, 17, 0.911);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .dropdown-menu a {

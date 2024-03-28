@@ -17,18 +17,26 @@ const Login = () => {
       setLoading(true);
       if (!passwordRef.current.value || !emailRef.current.value) {
         setErrorMsg("Please fill in the fields");
+        setLoading(false);
         return;
       }
       const { user, session, error } = await login(
         emailRef.current.value,
         passwordRef.current.value
       );
-      if (error) setErrorMsg(error.message);
-      if (user && session) navigate("/");
+      console.log({ user, session, error });
+      if (error) {
+        setErrorMsg(error.message);
+      } else if (user && session) {
+        console.log("Successfully authenticated, navigating to home.");
+        navigate("/");
+      } else {
+        console.log("Successfully authenticated, navigating to home.");
+        navigate("/");
+      }
     } catch (error) {
       setErrorMsg("Email or Password Incorrect");
     }
-    setLoading(false);
   };
 
   return (

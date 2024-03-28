@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./calendar.css";
+import { PieChart } from "@mui/x-charts";
 
 export default function Calendar() {
   const currentYear = new Date().getFullYear();
@@ -152,13 +153,40 @@ export default function Calendar() {
         </div>
       </div>
       <div className="result">
-        <p className=" workout-day">
+        {/* <p className=" workout-day">
           🏋️ You have exercised {workoutDays.length} days
         </p>
         <p className=" drink-day">🍺 You have drank {drinkDays.length} days</p>
         <p className=" combined-day">
           🤝 You have done both {combinedDaysCount} days
-        </p>
+        </p> */}
+        <PieChart
+          series={[
+            {
+              data: [
+                {
+                  id: 0,
+                  value: `${workoutDays.length}`,
+                  label: `Exercised ${workoutDays.length} days`,
+                },
+                {
+                  id: 1,
+                  value: `${drinkDays.length}`,
+                  label: `Drank ${drinkDays.length}`,
+                },
+                {
+                  id: 2,
+                  value: `${combinedDaysCount}`,
+                  label: `Both ${combinedDaysCount} days`,
+                },
+              ],
+              highlightScope: { faded: "global", highlighted: "item" },
+              faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
+            },
+          ]}
+          width={400}
+          height={200}
+        />
       </div>
     </>
   );
