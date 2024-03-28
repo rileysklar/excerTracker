@@ -136,30 +136,35 @@ select:focus-visible {
   border: none;
 }
 p.combined-day {
-  color: #66c519;
+  color: #fbfaf2;
   background-color: transparent;
 }
 
 p.drink-day {
-  color: #fde74c;
+  color: #ffe845;
   background-color: transparent;
 }
 
 p.workout-day {
-  color: #5bc0eb;
+  color: #25d8e4;
   background-color: transparent;
 }
 .workout-day {
-  background-color: #5bc0eb;
+  background-color: #25d8e4;
   color: #2c2c2c;
 }
 
 .drink-day {
-  background-color: #fde74c;
+  background-color: #ffe845;
   color: #2c2c2c;
 }
 
 .combined-day {
-  background-color: #66c519;
+  background-color: #fbfaf2;
   color: #2c2c2c;
+}
+
+.mui_measurement_span {
+  display: flex;
+  position: relative;
 }
