@@ -51,7 +51,7 @@ export function NavBar() {
           )}
           {!auth && (
             <Link className="nav-link" to="/register">
-              Register
+              Sign Up
             </Link>
           )}
           {/* {auth && (

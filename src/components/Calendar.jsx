@@ -161,19 +161,19 @@ export default function Calendar() {
                   {
                     id: 0,
                     value: `${workoutDays.length}`,
-                    label: `Exercised ${workoutDays.length} days`,
+                    label: "Exercised",
                     color: "#25d8e4",
                   },
                   {
                     id: 1,
                     value: `${drinkDays.length}`,
-                    label: `Drank ${drinkDays.length}`,
+                    label: "Drank",
                     color: "#ffe845",
                   },
                   {
                     id: 2,
                     value: `${combinedDaysCount}`,
-                    label: `Both ${combinedDaysCount} days`,
+                    label: "Both",
                     color: "#ff6e40",
                   },
                 ],

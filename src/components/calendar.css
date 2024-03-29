@@ -5,6 +5,7 @@
   align-items: center;
   justify-items: flex-start;
   gap: 18px;
+  padding-bottom: 32px;
 }
 
 .main-body {
@@ -49,7 +50,7 @@
   border-radius: 10px;
   border: 1px solid #ffffff24;
   width: 340px;
-  height: 405px;
+  height: 455px;
   margin-top: 32px;
 }
 

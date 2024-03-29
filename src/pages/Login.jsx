@@ -45,21 +45,21 @@ const Login = () => {
         <h2 className="text-center mb-4">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group" id="email">
-            <label>Email</label>
             <input
               type="email"
               ref={emailRef}
               required
               className="form-control"
+              placeholder="Email"
             />
           </div>
           <div className="form-group" id="password">
-            <label>Password</label>
             <input
               type="password"
               ref={passwordRef}
               required
               className="form-control"
+              placeholder="Password"
             />
           </div>
           {errorMsg && (
