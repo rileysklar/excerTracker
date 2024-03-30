@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./calendar.css";
 import { PieChart } from "@mui/x-charts";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 export default function Calendar() {
   const currentYear = new Date().getFullYear();
@@ -9,6 +10,8 @@ export default function Calendar() {
   const [workoutDays, setWorkoutDays] = useState([]);
   const [drinkDays, setDrinkDays] = useState([]);
   const [currentActivity, setCurrentActivity] = useState("I exercised");
+  const [viewMode, setViewMode] = useState("calendar"); // Default view
+
   const monthNames = [
     "January",
     "February",
@@ -75,6 +78,12 @@ export default function Calendar() {
     setCurrentActivity(e.target.value);
   };
 
+  const handleViewChange = (event, newView) => {
+    if (newView !== null) {
+      setViewMode(newView);
+    }
+  };
+
   const combinedDaysCount = workoutDays.filter((day) =>
     drinkDays.includes(day)
   ).length;
@@ -82,118 +91,140 @@ export default function Calendar() {
   return (
     <>
       <div className="calendar-content">
-        <div className="main-body">
-          <div className="month-yr-selector">
-            <div className="date-selector">
-              <select value={month} onChange={handleMonthChange}>
-                {monthNames.map((name, index) => (
-                  <option key={index} value={index}>
-                    {name}
-                  </option>
-                ))}
-              </select>
-              <select value={year} onChange={handleYearChange}>
-                {yearsArray.map((actualYear) => (
-                  <option key={actualYear} value={actualYear}>
-                    {actualYear}
-                  </option>
-                ))}
-              </select>{" "}
-            </div>
-            <div className="activity-selector">
-              <select value={currentActivity} onChange={handleActivityChange}>
-                {activities.map((activityItem) => (
-                  <option key={activityItem} value={activityItem}>
-                    {activityItem}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="calendar">
-            <div className="row">
-              {daysInWeek.map((dayOfWeek) => (
-                <li key={dayOfWeek}>{dayOfWeek}</li>
-              ))}
-            </div>
-            <div className="dates-grid">
-              {placeholders.map((_, index) => (
-                <div
-                  className="date-cell placeholder"
-                  key={`placeholder-${index}`}
-                ></div>
-              ))}
-
-              {daysArray.map((day) => {
-                const dayString = `${year}-${String(month + 1).padStart(
-                  2,
-                  "0"
-                )}-${String(day).padStart(2, "0")}`;
-                const isWorkoutDay = workoutDays.includes(dayString);
-                const isDrinkDay = drinkDays.includes(dayString);
-                let dayClass = "";
-                if (isWorkoutDay && isDrinkDay) {
-                  dayClass = "combined-day";
-                } else if (isWorkoutDay) {
-                  dayClass = "workout-day";
-                } else if (isDrinkDay) {
-                  dayClass = "drink-day";
-                }
-                return (
-                  <div
-                    className={`date-cell ${dayClass}`}
-                    key={day}
-                    onClick={() => toggleDay(day)}
-                    tabIndex="-1"
-                  >
-                    {day}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+        <div className="calendar-content">
+          <ToggleButtonGroup
+            className="centeredToggleGroup"
+            color="primary"
+            value={viewMode}
+            exclusive
+            onChange={handleViewChange}
+            aria-label="Platform"
+          >
+            <ToggleButton sx={{ color: "white" }} value="calendar">
+              Calendar
+            </ToggleButton>
+            <ToggleButton sx={{ color: "white" }} value="stats">
+              Stats
+            </ToggleButton>
+          </ToggleButtonGroup>
         </div>
-        <div className="result">
-          <PieChart
-            series={[
-              {
-                data: [
-                  {
-                    id: 0,
-                    value: `${workoutDays.length}`,
-                    label: "Exercised",
-                    color: "#25d8e4",
+        {viewMode === "calendar" && (
+          <div className="main-body">
+            <div className="month-yr-selector">
+              <div className="date-selector">
+                <select value={month} onChange={handleMonthChange}>
+                  {monthNames.map((name, index) => (
+                    <option key={index} value={index}>
+                      {name}
+                    </option>
+                  ))}
+                </select>
+                <select value={year} onChange={handleYearChange}>
+                  {yearsArray.map((actualYear) => (
+                    <option key={actualYear} value={actualYear}>
+                      {actualYear}
+                    </option>
+                  ))}
+                </select>{" "}
+              </div>
+              <div className="activity-selector">
+                <select value={currentActivity} onChange={handleActivityChange}>
+                  {activities.map((activityItem) => (
+                    <option key={activityItem} value={activityItem}>
+                      {activityItem}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="calendar">
+              <div className="row">
+                {daysInWeek.map((dayOfWeek) => (
+                  <li key={dayOfWeek}>{dayOfWeek}</li>
+                ))}
+              </div>
+              <div className="dates-grid">
+                {placeholders.map((_, index) => (
+                  <div
+                    className="date-cell placeholder"
+                    key={`placeholder-${index}`}
+                  ></div>
+                ))}
+
+                {daysArray.map((day) => {
+                  const dayString = `${year}-${String(month + 1).padStart(
+                    2,
+                    "0"
+                  )}-${String(day).padStart(2, "0")}`;
+                  const isWorkoutDay = workoutDays.includes(dayString);
+                  const isDrinkDay = drinkDays.includes(dayString);
+                  let dayClass = "";
+                  if (isWorkoutDay && isDrinkDay) {
+                    dayClass = "combined-day";
+                  } else if (isWorkoutDay) {
+                    dayClass = "workout-day";
+                  } else if (isDrinkDay) {
+                    dayClass = "drink-day";
+                  }
+                  return (
+                    <div
+                      className={`date-cell ${dayClass}`}
+                      key={day}
+                      onClick={() => toggleDay(day)}
+                      tabIndex="-1"
+                    >
+                      {day}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+        {viewMode === "stats" && (
+          <div className="result">
+            <PieChart
+              series={[
+                {
+                  data: [
+                    {
+                      id: 0,
+                      value: `${workoutDays.length}`,
+                      label: "Exercised",
+                      color: "#25d8e4",
+                    },
+                    {
+                      id: 1,
+                      value: `${drinkDays.length}`,
+                      label: "Drank",
+                      color: "#ffe845",
+                    },
+                    {
+                      id: 2,
+                      value: `${combinedDaysCount}`,
+                      label: "Both",
+                      color: "#ff6e40",
+                    },
+                  ],
+                  highlightScope: { faded: "global", highlighted: "item" },
+                  faded: {
+                    innerRadius: 30,
+                    additionalRadius: -30,
+                    color: "gray",
                   },
-                  {
-                    id: 1,
-                    value: `${drinkDays.length}`,
-                    label: "Drank",
-                    color: "#ffe845",
-                  },
-                  {
-                    id: 2,
-                    value: `${combinedDaysCount}`,
-                    label: "Both",
-                    color: "#ff6e40",
-                  },
-                ],
-                highlightScope: { faded: "global", highlighted: "item" },
-                faded: {
-                  innerRadius: 30,
-                  additionalRadius: -30,
-                  color: "gray",
                 },
-              },
-            ]}
-            height={200}
-            width={400}
-            viewBox="400 400 400 400"
-            slotProps={{
-              legend: {
-                hidden: true,
-              },
-            }}
-          />
+              ]}
+              height={200}
+              width={400}
+              slotProps={{
+                legend: {
+                  hidden: true,
+                },
+              }}
+            />
+          </div>
+        )}
+        <div className="stats">
           <p className=" workout-day">
             🏋️ You have exercised {workoutDays.length} days
           </p>

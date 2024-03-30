@@ -2,11 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: calc(100vw - 24px);
+  width: calc(100vw - 25px);
   background: rgba(0, 9, 26, 0.15);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.085);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.085);
   padding: 12px;
 }
 
@@ -107,6 +107,7 @@ a.nav-link {
   background: rgba(44, 42, 42, 0.755);
   border-radius: 100px;
   padding: 8px 12px;
+  font-size: 12px;
 }
 
 .me-auto {

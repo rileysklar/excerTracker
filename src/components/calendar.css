@@ -17,7 +17,7 @@
   border-radius: 10px;
   border: 1px solid #ffffff24;
   z-index: 1;
-  margin-top: 32px;
+  margin-top: 12px;
 }
 
 .row {
@@ -42,7 +42,7 @@
 .result {
   display: flex;
   flex-direction: column;
-  padding-bottom: 12px;
+  padding: 24px 0;
   background: rgba(78, 78, 78, 0.25);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
   backdrop-filter: blur(4px);
@@ -50,8 +50,9 @@
   border-radius: 10px;
   border: 1px solid #ffffff24;
   width: 340px;
-  height: 455px;
-  margin-top: 32px;
+  height: auto;
+  margin-top: 12px;
+  overflow-x: hidden;
 }
 
 .month-yr-selector {
@@ -179,6 +180,17 @@ p.workout-day {
   position: relative;
 }
 
+.calendar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-top: 24px;
+}
+
+.stats {
+  padding-top: 12px;
+}
+
 .css-66gjpw-MuiResponsiveChart-container > svg {
   padding-left: 30px;
 }
@@ -186,5 +198,11 @@ p.workout-day {
 @media only screen and (max-width: 767px) {
   .calendar-content {
     gap: 0;
+    padding-top: 12px;
+    margin-top: 0;
+  }
+
+  .main-body {
+    margin-top: 12px;
   }
 }
