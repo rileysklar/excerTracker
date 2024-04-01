@@ -35,10 +35,19 @@ export function NavBar() {
 
         <div className="user">
           <div className="ring-container">
-            <div className="ringring"></div>
-            <div className="circle"></div>
+            {user ? (
+              <>
+                <div className="ringring"></div>
+                <div className="circle"></div>
+              </>
+            ) : (
+              <>
+                <div className="ringring-red"></div>
+                <div className="circle-red"></div>
+              </>
+            )}
           </div>
-          {user ? user.email : "Guest"}
+          {user ? user.email : "Not signed in"}
         </div>
       </div>
 
