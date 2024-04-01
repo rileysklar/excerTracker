@@ -25,7 +25,7 @@ const Register = () => {
       return;
     }
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      setErrorMsg("Passwords doesn't match");
+      setErrorMsg("Passwords don't match");
       return;
     }
     try {

@@ -3,6 +3,7 @@ import "./navbar.css";
 // import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
+import runningLogo from "../assets/running.png";
 
 export function NavBar() {
   // const [dropDown, setDropDown] = useState(false);
@@ -30,7 +31,7 @@ export function NavBar() {
     <nav className="navbar">
       <div className="nav-left">
         <Link to="/" className="navbar-brand">
-          🏋️{document.title}
+          <img src={runningLogo} alt="logo" /> {document.title}
         </Link>
 
         <div className="user">

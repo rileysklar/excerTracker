@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./calendar.css";
 import { PieChart } from "@mui/x-charts";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import supabase from "../supabase";
 
 export default function Calendar() {
+  const today = new Date();
   const currentYear = new Date().getFullYear();
   const [year, setYear] = useState(currentYear);
   const [month, setMonth] = useState(new Date().getMonth());
@@ -11,7 +13,6 @@ export default function Calendar() {
   const [drinkDays, setDrinkDays] = useState([]);
   const [currentActivity, setCurrentActivity] = useState("I exercised");
   const [viewMode, setViewMode] = useState("calendar"); // Default view
-
   const monthNames = [
     "January",
     "February",
@@ -26,7 +27,6 @@ export default function Calendar() {
     "November",
     "December",
   ];
-
   const daysInWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const activities = ["I exercised", "I drank"];
   const startYear = currentYear - 5;
@@ -54,22 +54,38 @@ export default function Calendar() {
   const handleYearChange = (e) => {
     setYear(parseInt(e.target.value, 10));
   };
-  const toggleDay = (day) => {
+
+  const toggleDay = async (day) => {
     const dateString = `${year}-${String(month + 1).padStart(2, "0")}-${String(
       day
     ).padStart(2, "0")}`;
 
+    // Decide the type of activity based on currentActivity state
+    const activityType =
+      currentActivity === "I exercised" ? "Exercised" : "Drank";
+    let newActivityDays;
+
     if (currentActivity === "I exercised") {
       if (workoutDays.includes(dateString)) {
-        setWorkoutDays(workoutDays.filter((d) => d !== dateString));
+        // Assuming you have a function to remove the day from the database
+        await removeDay(dateString, activityType);
+        newActivityDays = workoutDays.filter((d) => d !== dateString);
+        setWorkoutDays(newActivityDays);
       } else {
-        setWorkoutDays([...workoutDays, dateString]);
+        await postDay(day, activityType);
+        newActivityDays = [...workoutDays, dateString];
+        setWorkoutDays(newActivityDays);
       }
     } else if (currentActivity === "I drank") {
       if (drinkDays.includes(dateString)) {
-        setDrinkDays(drinkDays.filter((d) => d !== dateString));
+        // Assuming you have a function to remove the day from the database
+        await removeDay(dateString, activityType);
+        newActivityDays = drinkDays.filter((d) => d !== dateString);
+        setDrinkDays(newActivityDays);
       } else {
-        setDrinkDays([...drinkDays, dateString]);
+        await postDay(day, activityType);
+        newActivityDays = [...drinkDays, dateString];
+        setDrinkDays(newActivityDays);
       }
     }
   };
@@ -84,9 +100,64 @@ export default function Calendar() {
     }
   };
 
+  const userId = supabase.auth.user;
+
   const combinedDaysCount = workoutDays.filter((day) =>
     drinkDays.includes(day)
   ).length;
+
+  const fetchDays = async () => {
+    const { data, error } = await supabase
+      .from("user_activities")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("date", `${year}-${month < 10 ? "0" + month : month}`);
+
+    if (error) {
+      console.error("Error fetching days:", error);
+    } else {
+      setWorkoutDays(data.filter((day) => day.activity_type === "Exercised"));
+      setDrinkDays(data.filter((day) => day.activity_type === "Drank"));
+    }
+  };
+
+  const removeDay = async (day, activity_type) => {
+    const { error } = await supabase
+      .from("user_activities")
+      .delete()
+      .eq("user_id", userId)
+      .eq(
+        "date",
+        `${year}-${month < 10 ? "0" + month : month}-${
+          day < 10 ? "0" + day : day
+        }`
+      )
+      .eq("activity_type", activity_type);
+
+    if (error) {
+      console.error("Error removing day:", error);
+    } else {
+      fetchDays();
+    }
+  };
+
+  const postDay = async (day, activity_type) => {
+    const { error } = await supabase.from("activities").insert([
+      {
+        user_id: userId,
+        date: `${year}-${month < 10 ? "0" + month : month}-${
+          day < 10 ? "0" + day : day
+        }`,
+        activity_type,
+      },
+    ]);
+
+    if (error) {
+      console.error("Error posting day:", error);
+    } else {
+      fetchDays();
+    }
+  };
 
   return (
     <>
@@ -166,6 +237,9 @@ export default function Calendar() {
                   } else if (isDrinkDay) {
                     dayClass = "drink-day";
                   }
+                  if (dayString === today.toISOString().split("T")[0]) {
+                    dayClass += " today";
+                  }
                   return (
                     <div
                       className={`date-cell ${dayClass}`}
@@ -225,17 +299,21 @@ export default function Calendar() {
           </div>
         )}
         <div className="stats">
-          <p className=" workout-day">
-            🏋️ You have exercised {workoutDays.length} days
-          </p>
-          <p className=" drink-day">
-            🍺 You have drank {drinkDays.length} days
-          </p>
-          <p className=" combined-day">
-            🤝 You have done both {combinedDaysCount} days
-          </p>
+          <div className="stat-box">
+            <p className=" workout-day">{workoutDays.length} </p>
+            Exercise days
+          </div>
+          <div className="stat-box">
+            <p className=" drink-day"> {drinkDays.length} </p>
+            Drank days
+          </div>
+          <div className="stat-box">
+            <p className=" combined-day">{combinedDaysCount} </p>
+            Combined days
+          </div>
         </div>
       </div>
+      <div className="today-date"> Today is {today.toDateString()}</div>
     </>
   );
 }

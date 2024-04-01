@@ -43,3 +43,28 @@ form {
 .text-center {
   text-align: center;
 }
+
+.close {
+  padding: 0px;
+  display: flex;
+  width: 44px;
+  height: 24px;
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  padding-bottom: 2px;
+  background-color: aqua;
+  color: black;
+}
+
+.alert {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 12px;
+}
+
+.alert-danger {
+  flex-direction: row;
+  justify-content: center;
+}

@@ -133,6 +133,7 @@ select:focus-visible {
   border: 1px solid #cccccc1b;
   cursor: pointer;
   border-radius: 100px;
+  transition: all 0.5s ease;
 }
 
 .placeholder {
@@ -142,6 +143,15 @@ select:focus-visible {
 p.combined-day {
   color: #ff6e40;
   background-color: transparent;
+}
+
+.today {
+  border: solid 1px #ffffff24;
+  border-radius: 6px;
+}
+
+.today-date {
+  font-size: 12px;
 }
 
 p.drink-day {
@@ -187,8 +197,23 @@ p.workout-day {
   padding-top: 24px;
 }
 
+.stat-box {
+  border: solid 1px #ffffff24;
+  padding: 6px;
+  border-radius: 10px;
+}
+
 .stats {
   padding-top: 12px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.stats p {
+  font-size: 64px;
+  font-weight: 900;
 }
 
 .css-66gjpw-MuiResponsiveChart-container > svg {

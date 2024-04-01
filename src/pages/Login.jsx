@@ -83,7 +83,7 @@ const Login = () => {
         </form>
       </div>
       <div className="text-center mt-2">
-        New User? <Link to={"/register"}>Register</Link>
+        New User? <Link to={"/register"}>Sign Up</Link>
       </div>
     </div>
   );
