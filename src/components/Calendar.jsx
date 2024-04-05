@@ -3,6 +3,7 @@ import "./calendar.css";
 import { PieChart } from "@mui/x-charts";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import supabase from "../supabase";
+import { format } from "date-fns";
 
 export default function Calendar() {
   const today = new Date();
@@ -313,7 +314,10 @@ export default function Calendar() {
           </div>
         </div>
       </div>
-      <div className="today-date"> Today is {today.toDateString()}</div>
+      <div className="today-date">
+        Today is {format(today, "EEEE, MMMM do, yyyy")} at{" "}
+        {new Date().toLocaleTimeString()}
+      </div>
     </>
   );
 }
