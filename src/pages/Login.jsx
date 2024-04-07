@@ -24,6 +24,7 @@ const Login = () => {
         emailRef.current.value,
         passwordRef.current.value
       );
+
       console.log({ user, session, error });
       if (error) {
         setErrorMsg(error.message);
@@ -31,10 +32,10 @@ const Login = () => {
         console.log("Successfully authenticated, navigating to home.");
         navigate("/");
       } else {
-        console.log("Successfully authenticated, navigating to home.");
-        navigate("/");
+        console.log("Login returned no error, but also no user or session.");
       }
     } catch (error) {
+      console.error("Caught an error during login:", error);
       setErrorMsg("Email or Password Incorrect");
     }
   };

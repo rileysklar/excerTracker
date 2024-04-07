@@ -12,7 +12,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
 
   const register = (email, password) =>
-    supabase.auth.signUp({ email, password });
+    supabase.auth.signUpWithPassword({ email, password });
 
   const handleSubmit = async (e) => {
     e.preventDefault();

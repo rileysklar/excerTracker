@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./calendar.css";
 import { PieChart } from "@mui/x-charts";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
@@ -100,19 +100,16 @@ export default function Calendar() {
       setViewMode(newView);
     }
   };
-
-  const userId = supabase.auth.user;
-
-  const combinedDaysCount = workoutDays.filter((day) =>
-    drinkDays.includes(day)
-  ).length;
-
   const fetchDays = async () => {
+    if (!userId) {
+      // Don't try to fetch activities if userId is undefined
+      return;
+    }
+
     const { data, error } = await supabase
       .from("user_activities")
       .select("*")
-      .eq("user_id", userId)
-      .eq("date", `${year}-${month < 10 ? "0" + month : month}`);
+      .eq("user_id", userId);
 
     if (error) {
       console.error("Error fetching days:", error);
@@ -122,18 +119,25 @@ export default function Calendar() {
     }
   };
 
-  const removeDay = async (day, activity_type) => {
+  // Get the user object from the current session
+  const user = supabase.auth.user;
+
+  // Use the user's ID for fetching activities
+  const userId = user?.id;
+
+  const combinedDaysCount = workoutDays.filter((day) =>
+    drinkDays.includes(day)
+  ).length;
+
+  useEffect(() => {
+    // Call fetchDays when the component mounts
+    fetchDays();
+  }, [userId]); // Add userId as a dependency
+  const removeDay = async (activity_id) => {
     const { error } = await supabase
       .from("user_activities")
       .delete()
-      .eq("user_id", userId)
-      .eq(
-        "date",
-        `${year}-${month < 10 ? "0" + month : month}-${
-          day < 10 ? "0" + day : day
-        }`
-      )
-      .eq("activity_type", activity_type);
+      .eq("activity_id", activity_id);
 
     if (error) {
       console.error("Error removing day:", error);
@@ -142,15 +146,9 @@ export default function Calendar() {
     }
   };
 
-  const postDay = async (day, activity_type) => {
-    const { error } = await supabase.from("activities").insert([
-      {
-        user_id: userId,
-        date: `${year}-${month < 10 ? "0" + month : month}-${
-          day < 10 ? "0" + day : day
-        }`,
-        activity_type,
-      },
+  const postDay = async (activity_type, date) => {
+    const { error } = await supabase.from("user_activities").insert([
+      { activity_type, date, user_id: userId }, // Include the user_id
     ]);
 
     if (error) {
