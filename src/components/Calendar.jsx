@@ -61,30 +61,27 @@ export default function Calendar() {
       day
     ).padStart(2, "0")}`;
 
-    // Decide the type of activity based on currentActivity state
     const activityType =
       currentActivity === "I exercised" ? "Exercised" : "Drank";
     let newActivityDays;
 
     if (currentActivity === "I exercised") {
       if (workoutDays.includes(dateString)) {
-        // Assuming you have a function to remove the day from the database
         await removeDay(dateString, activityType);
         newActivityDays = workoutDays.filter((d) => d !== dateString);
         setWorkoutDays(newActivityDays);
       } else {
-        await postDay(day, activityType);
+        await postDay(activityType, dateString); // Modified here
         newActivityDays = [...workoutDays, dateString];
         setWorkoutDays(newActivityDays);
       }
     } else if (currentActivity === "I drank") {
       if (drinkDays.includes(dateString)) {
-        // Assuming you have a function to remove the day from the database
         await removeDay(dateString, activityType);
         newActivityDays = drinkDays.filter((d) => d !== dateString);
         setDrinkDays(newActivityDays);
       } else {
-        await postDay(day, activityType);
+        await postDay(activityType, dateString); // Modified here
         newActivityDays = [...drinkDays, dateString];
         setDrinkDays(newActivityDays);
       }
@@ -100,7 +97,10 @@ export default function Calendar() {
       setViewMode(newView);
     }
   };
+
   const fetchDays = async () => {
+    console.log("fetchDays is being called"); // Add this line
+
     if (!userId) {
       // Don't try to fetch activities if userId is undefined
       return;
@@ -114,8 +114,16 @@ export default function Calendar() {
     if (error) {
       console.error("Error fetching days:", error);
     } else {
-      setWorkoutDays(data.filter((day) => day.activity_type === "Exercised"));
-      setDrinkDays(data.filter((day) => day.activity_type === "Drank"));
+      setWorkoutDays(
+        data
+          .filter((day) => day.activity_type === "Exercised")
+          .map((day) => day.date)
+      );
+      setDrinkDays(
+        data
+          .filter((day) => day.activity_type === "Drank")
+          .map((day) => day.date)
+      );
     }
   };
 
@@ -147,8 +155,20 @@ export default function Calendar() {
   };
 
   const postDay = async (activity_type, date) => {
+    // Log the date value
+    console.log("Date:", date);
+
+    // Format the date in the format 'YYYY-MM-DD'
+    const formattedDate = format(date, "yyyy-MM-dd");
+
+    // Get the user object from the current session
+    const user = supabase.auth.user;
+
+    // Use the user's ID for inserting activities
+    const userId = user?.id;
+
     const { error } = await supabase.from("user_activities").insert([
-      { activity_type, date, user_id: userId }, // Include the user_id
+      { activity_type, date: formattedDate, user_id: userId }, // Include the user_id
     ]);
 
     if (error) {
