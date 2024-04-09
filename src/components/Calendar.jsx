@@ -138,14 +138,69 @@ export default function Calendar() {
   ).length;
 
   useEffect(() => {
-    // Call fetchDays when the component mounts
-    fetchDays();
-  }, [userId]); // Add userId as a dependency
-  const removeDay = async (activity_id) => {
+    const fetchDays = async (user) => {
+      if (!user) {
+        // Don't try to fetch activities if user is undefined
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("user_activities")
+        .select("*")
+        .eq("user_id", user.id);
+
+      if (error) {
+        console.error("Error fetching days:", error);
+      } else {
+        console.log("Fetched data:", data); // Log the fetched data
+
+        setWorkoutDays(
+          data
+            .filter((day) => day.activity_type === "Exercised")
+            .map((day) => day.date)
+        );
+        setDrinkDays(
+          data
+            .filter((day) => day.activity_type === "Drank")
+            .map((day) => day.date)
+        );
+      }
+    };
+
+    // Listen for changes in the authentication state
+    const unsubscribe = supabase.auth.onAuthStateChange((event, session) => {
+      if (session && session.user) {
+        fetchDays(session.user);
+      }
+    });
+
+    // Call fetchDays immediately after defining it
+    if (supabase.auth.user) {
+      fetchDays(supabase.auth.user);
+    }
+
+    // Unsubscribe from the auth state change listener when the component unmounts
+    console.log(unsubscribe); // Add this line to see what unsubscribe is
+    return () => {
+      if (typeof unsubscribe === "function") {
+        unsubscribe();
+      } else {
+        console.error("unsubscribe is not a function", unsubscribe);
+      }
+    };
+  }, []); // Empty dependency array means this effect runs once on mount
+
+  const removeDay = async (dateString, activity_type) => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
     const { error } = await supabase
       .from("user_activities")
       .delete()
-      .eq("activity_id", activity_id);
+      .eq("user_id", user.id)
+      .eq("date", dateString)
+      .eq("activity_type", activity_type);
 
     if (error) {
       console.error("Error removing day:", error);
@@ -154,27 +209,21 @@ export default function Calendar() {
     }
   };
 
-  const postDay = async (activity_type, date) => {
-    // Log the date value
-    console.log("Date:", date);
+  const postDay = async (activityType, dateString) => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    // Format the date in the format 'YYYY-MM-DD'
-    const formattedDate = format(date, "yyyy-MM-dd");
-
-    // Get the user object from the current session
-    const user = supabase.auth.user;
-
-    // Use the user's ID for inserting activities
-    const userId = user?.id;
-
-    const { error } = await supabase.from("user_activities").insert([
-      { activity_type, date: formattedDate, user_id: userId }, // Include the user_id
-    ]);
+    const { data, error } = await supabase
+      .from("user_activities")
+      .insert([
+        { date: dateString, activity_type: activityType, user_id: user.id },
+      ]);
 
     if (error) {
       console.error("Error posting day:", error);
     } else {
-      fetchDays();
+      console.log("Day posted:", data);
     }
   };
 

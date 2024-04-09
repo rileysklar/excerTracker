@@ -16,26 +16,32 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (
-      !passwordRef.current?.value ||
       !emailRef.current?.value ||
+      !passwordRef.current?.value ||
       !confirmPasswordRef.current?.value
     ) {
       setErrorMsg("Please fill all the fields");
       return;
     }
+
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       setErrorMsg("Passwords don't match");
       return;
     }
+
     try {
       setErrorMsg("");
       setLoading(true);
-      const { data, error } = await register(
-        emailRef.current.value,
-        passwordRef.current.value
-      );
-      if (!error && data) {
+      const { data, error } = await supabase.auth.signUp({
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      });
+
+      if (error) {
+        setErrorMsg(error.message);
+      } else if (data) {
         setMsg(
           "Registration Successful. Check your email to confirm your account"
         );
@@ -43,6 +49,7 @@ const Register = () => {
     } catch (error) {
       setErrorMsg("Error in Creating Account");
     }
+
     setLoading(false);
   };
 
