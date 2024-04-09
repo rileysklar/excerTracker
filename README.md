@@ -1,5 +1,7 @@
 # 🏋️‍♂️ FitQuench 🍺
 
+Visit the live app https://fitquench.netlify.app/
+
 ![FitQuench App](./src/assets/fitquench.jpg)
 
 Welcome to FitQuench, a fun and interactive app built with React & Vite! This app is designed to help you keep track of your exercise and drinking habits.
