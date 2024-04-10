@@ -42,9 +42,7 @@ const Register = () => {
       if (error) {
         setErrorMsg(error.message);
       } else if (data) {
-        setMsg(
-          "Registration Successful. Check your email to confirm your account"
-        );
+        setMsg("Registration Successful. Login and enjoy!");
       }
     } catch (error) {
       setErrorMsg("Error in Creating Account");
