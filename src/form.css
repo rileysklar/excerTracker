@@ -18,7 +18,7 @@
 
 input {
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 6px;
   border: 1px solid #cccccc50;
   width: calc(100% - 20px);
 }
@@ -33,6 +33,7 @@ form {
 .btn-primary {
   width: 100%;
   background-color: aqua;
+  border-radius: 6px;
   color: rgba(0, 0, 0, 0.738);
 }
 
