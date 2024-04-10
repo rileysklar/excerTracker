@@ -22,8 +22,9 @@ h3 {
   align-items: center;
   gap: 4px;
   background: rgba(44, 42, 42, 0.755);
-  border-radius: 100px;
+  border-radius: 6px;
   padding: 6px 10px 6px 2px;
+  border: 1px solid rgba(255, 255, 255, 0.085);
 }
 
 a.navbar-brand {
@@ -122,7 +123,8 @@ a.navbar-brand {
 
 a.nav-link {
   background: rgba(44, 42, 42, 0.755);
-  border-radius: 100px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.085);
   padding: 8px 12px;
   font-size: 12px;
   transition: all 0.2s ease-in-out;
