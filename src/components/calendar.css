@@ -151,12 +151,8 @@ p.combined-day {
 }
 
 .today {
-  border: solid 1px #5eff45;
+  border: solid 1px #cccccc1b;
   border-radius: 6px;
-  font-size: 24px;
-  padding: 2px 0 0 0;
-  font-weight: 700;
-  color: #5eff45;
 }
 
 .today-date {

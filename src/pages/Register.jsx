@@ -108,7 +108,7 @@ const Register = () => {
                   aria-label="Close"
                   onClick={() => setMsg("")}
                 >
-                  <span aria-hidden="true">&times;</span>
+                  <span aria-hidden="true">&check;</span>
                 </button>
               </div>
             )}
